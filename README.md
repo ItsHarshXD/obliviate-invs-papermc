@@ -1,30 +1,8 @@
 ![Downloads](https://jitpack.io/v/hamza-cskn/obliviate-invs/month.svg) [![](https://jitpack.io/v/hamza-cskn/obliviate-invs.svg)](https://jitpack.io/#hamza-cskn/obliviate-invs) <-- current version
 
-## Maven
+## Adding in my project
 
-```xml
-<repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
-</repository>
-
-<dependency>
-    <groupId>com.github.hamza-cskn.obliviate-invs</groupId>
-    <artifactId>core</artifactId>
-    <version>{INSERT_VERSION_HERE}</version>
-</dependency>
-```
-## Gradle
-```gradle
-repositories {
-    maven { url 'https://jitpack.io' }
-}
-
-dependencies {
-    implementation 'com.github.hamza-cskn.obliviate-invs:core:{INSERT_VERSION_HERE}'
-    //implementation 'com.github.hamza-cskn.obliviate-invs:configurablegui:{INSERT_VERSION_HERE}'
-}
-```
+Compile this project using Java 21 on your machine then simply get the artifact of your choice.
 
 # ObliviateInvs
 
@@ -47,22 +25,5 @@ Visit [wiki](https://github.com/Obliviated/obliviate-invs/wiki/) page to see usa
 - Allows players clicking their own inventory during they using a GUI.
 - Feel safe. obliviate-invs tested in live. It is stable.
 
-## Other useful codes for GUI development
-
-* Snake slot iteration algorithm for
-  GUIs: [Click to go gist](https://gist.github.com/hamza-cskn/67c241c099d26e933a7662ba906322ce)
-* ItemBuilder class that is used in this
-  project: [Click to go gist](https://gist.github.com/hamza-cskn/af71812e9235025be348f2600502d6cd)
-* Gradient and TextAnimation algorithms for
-  GUIs: [Click to go gist](https://gist.github.com/hamza-cskn/c741466e33bb359210de3a24bb52c7c6)
-
-## Star History
-
-<a href="https://star-history.com/#hamza-cskn/obliviate-invs&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=hamza-cskn/obliviate-invs&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=hamza-cskn/obliviate-invs&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=hamza-cskn/obliviate-invs&type=Date" />
-  </picture>
-</a>
-
+## Credits
+- [Hamza Coşkun](https://github.com/hamza-cskn) : For creating this cool library.
