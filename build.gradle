@@ -7,7 +7,7 @@ plugins {
 
 group 'mc.obliviate'
 version '4.1.13.2'
-sourceCompatibility = 8
+sourceCompatibility = 21
 compileJava.options.encoding = 'UTF-8'
 
 tasks.jar {
@@ -31,6 +31,10 @@ subprojects {
         maven { url 'https://repo.maven.apache.org/maven2/' }
         maven { url 'https://repo.codemc.org/repository/nms/' }
         maven { url 'https://jitpack.io' }
+    }
+
+    dependencies {
+        compileOnly files('paperapi.jar')
     }
 
     publishing {

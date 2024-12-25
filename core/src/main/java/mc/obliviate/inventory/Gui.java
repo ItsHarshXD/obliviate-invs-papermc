@@ -17,10 +17,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +41,7 @@ public abstract class Gui implements InventoryHolder {
 	private int size;
 	private boolean isClosed = false;
 
-	public Gui(@Nonnull Player player, @Nonnull String id, String title, @Nonnegative int rows) {
+	public Gui(@NotNull Player player, @NotNull String id, String title, @PositiveOrZero int rows) {
 		this.registeredIcons = new HashMap<>(rows * 9);
 		this.player = player;
 		this.size = rows * 9;
@@ -50,7 +50,7 @@ public abstract class Gui implements InventoryHolder {
 		this.inventoryType = InventoryType.CHEST;
 	}
 
-	public Gui(@Nonnull Player player, @Nonnull String id, String title, InventoryType inventoryType) {
+	public Gui(@NotNull Player player, @NotNull String id, String title, InventoryType inventoryType) {
 		this.registeredIcons = new HashMap<>(inventoryType.getDefaultSize());
 		this.player = player;
 		this.size = inventoryType.getDefaultSize();
@@ -59,11 +59,11 @@ public abstract class Gui implements InventoryHolder {
 		this.inventoryType = inventoryType;
 	}
 
-	public Gui(@Nonnull Player player, @Nonnull String id, Component title, @Nonnegative int rows) {
+	public Gui(@NotNull Player player, @NotNull String id, Component title, @PositiveOrZero int rows) {
 		this(player, id, NMSUtil.LEGACY.serialize(title), rows);
 	}
 
-	public Gui(@Nonnull Player player, @Nonnull String id, Component title, InventoryType inventoryType) {
+	public Gui(@NotNull Player player, @NotNull String id, Component title, InventoryType inventoryType) {
 		this(player, id, NMSUtil.LEGACY.serialize(title), inventoryType);
 	}
 
@@ -72,7 +72,7 @@ public abstract class Gui implements InventoryHolder {
 	 *
 	 * @return Instance of registered plugin.
 	 */
-	@Nonnull
+	@NotNull
 	public Plugin getPlugin() {
 		return InventoryAPI.getInstance().getPlugin();
 	}
@@ -197,7 +197,7 @@ public abstract class Gui implements InventoryHolder {
 	 * @param item Icon to put.
 	 * @param row Row number. Starts from 0.
 	 */
-	public void fillRow(GuiIcon item, @Nonnegative int row) {
+	public void fillRow(GuiIcon item, @PositiveOrZero int row) {
 		Preconditions.checkArgument(row < this.size / 9);
 		for (int i = 0; i < 9; i++) {
 			this.addItem((row * 9 + i), item);
@@ -211,14 +211,14 @@ public abstract class Gui implements InventoryHolder {
 	 * @param item  Icon to put.
 	 * @param column Column number. Starts from 0.
 	 */
-	public void fillColumn(GuiIcon item, @Nonnegative int column) {
+	public void fillColumn(GuiIcon item, @PositiveOrZero int column) {
 		Preconditions.checkArgument(column < 9);
 		for (int i = 0; i < (size/9); i++) {
 			this.addItem((i * 9 + column), item);
 		}
 	}
 
-	public void addItem(@Nonnegative int slot, @Nullable GuiIcon icon) {
+	public void addItem(@PositiveOrZero int slot, @Nullable GuiIcon icon) {
 		if (this.inventory.getSize() <= slot) {
 			throw new IndexOutOfBoundsException("Slot cannot be bigger than inventory size! [ " + slot + " >= " + this.inventory.getSize() + " ]");
 		}
@@ -227,23 +227,23 @@ public abstract class Gui implements InventoryHolder {
 		this.inventory.setItem(slot, (icon == null ? null : icon.getItem()));
 	}
 
-	public void addItem(@Nullable GuiIcon item, @Nonnull Integer... slots) {
+	public void addItem(@Nullable GuiIcon item, @NotNull Integer... slots) {
 		for (int slot : slots) {
 			this.addItem(slot, item);
 		}
 	}
 
-	public void addItem(@Nullable GuiIcon icon, @Nonnull Iterable<Integer> slots) {
+	public void addItem(@Nullable GuiIcon icon, @NotNull Iterable<Integer> slots) {
 		for (Integer slot : slots) {
 			this.addItem(slot, icon);
 		}
 	}
 
-	public void addItem(@Nonnegative int slot, @Nullable ItemStack item) {
+	public void addItem(@PositiveOrZero int slot, @Nullable ItemStack item) {
 		this.addItem(slot, new Icon(item));
 	}
 
-	public void addItem(@Nonnull GuiIcon icon) {
+	public void addItem(@NotNull GuiIcon icon) {
 		this.addItem(this.inventory.firstEmpty(), icon);
 	}
 
@@ -251,11 +251,11 @@ public abstract class Gui implements InventoryHolder {
 		this.addItem(this.inventory.firstEmpty(), new Icon(item));
 	}
 
-	public void addItem(@Nonnull Material material) {
+	public void addItem(@NotNull Material material) {
 		this.addItem(this.inventory.firstEmpty(), new Icon(material));
 	}
 
-	public void addItem(@Nonnegative int slot, Material material) {
+	public void addItem(@PositiveOrZero int slot, Material material) {
 		this.addItem(slot, new Icon(material));
 	}
 
@@ -267,7 +267,7 @@ public abstract class Gui implements InventoryHolder {
 	 * @param periodInTicks
 	 * @param update
 	 */
-	public void updateTask(@Nonnegative long runDelayInTicks, @Nonnegative long periodInTicks, @Nonnull final Consumer<MyScheduledTask> update) {
+	public void updateTask(@PositiveOrZero long runDelayInTicks, @PositiveOrZero long periodInTicks, @NotNull final Consumer<MyScheduledTask> update) {
 		Preconditions.checkNotNull(InventoryAPI.getInstance(), "InventoryAPI is not initialized.");
 		final MyScheduledTask[] scheduledTask = new MyScheduledTask[]{null};
 		scheduledTask[0] = InventoryAPI.getScheduler().runTaskTimer(() -> update.accept(scheduledTask[0]), runDelayInTicks, periodInTicks);
@@ -281,25 +281,25 @@ public abstract class Gui implements InventoryHolder {
 	 * @param runDelayInTicks
 	 * @param update
 	 */
-	public void runTaskLater(@Nonnegative long runDelayInTicks, @Nonnull final Consumer<MyScheduledTask> update) {
+	public void runTaskLater(@PositiveOrZero long runDelayInTicks, @NotNull final Consumer<MyScheduledTask> update) {
 		Preconditions.checkNotNull(InventoryAPI.getInstance(), "InventoryAPI is not initialized.");
 		final MyScheduledTask[] scheduledTask = new MyScheduledTask[]{null};
 		scheduledTask[0] = InventoryAPI.getScheduler().runTaskLater(() -> update.accept(scheduledTask[0]), runDelayInTicks);
 		taskList.add(scheduledTask[0]);
 	}
 
-	@Nonnull
+	@NotNull
 	public Map<Integer, GuiIcon> getItems() {
 		return registeredIcons;
 	}
 
-	@Nonnull
+	@NotNull
 	public String getId() {
 		return id;
 	}
 
 	@Override
-	@Nonnull
+	@NotNull
 	public Inventory getInventory() {
 		return this.inventory;
 	}
@@ -323,7 +323,7 @@ public abstract class Gui implements InventoryHolder {
 	 *
 	 * @param title new title
 	 */
-	public void sendTitleUpdate(@Nonnull String title) {
+	public void sendTitleUpdate(@NotNull String title) {
 		this.title = Objects.requireNonNull(title, "title cannot be null!");
 		this.open();
 	}
@@ -333,7 +333,7 @@ public abstract class Gui implements InventoryHolder {
 	 *
 	 * @param sizeUpdate new size
 	 */
-	public void sendSizeUpdate(@Nonnegative int sizeUpdate) {
+	public void sendSizeUpdate(@PositiveOrZero int sizeUpdate) {
 		this.size = sizeUpdate;
 		this.open();
 	}
@@ -359,7 +359,7 @@ public abstract class Gui implements InventoryHolder {
 	 *
 	 * @param size Size of inventory.
 	 */
-	public void setSize(@Nonnegative int size) {
+	public void setSize(@PositiveOrZero int size) {
 		this.size = size;
 	}
 
@@ -400,7 +400,7 @@ public abstract class Gui implements InventoryHolder {
 	 *
 	 * @param task Task to stop.
 	 */
-	public void stopTask(@Nonnull MyScheduledTask task) {
+	public void stopTask(@NotNull MyScheduledTask task) {
 		Preconditions.checkNotNull(task, "task cannot be null");
 		task.cancel();
 		taskList.remove(task);

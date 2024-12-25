@@ -1,6 +1,12 @@
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url 'https://repo.papermc.io/repository/maven-public/' }
+}
+
 dependencies {
     compileOnly project(':core')
-    compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
+    compileOnly files('../paperapi.jar')
 }
 
 project.setLibsDirName('../../target')

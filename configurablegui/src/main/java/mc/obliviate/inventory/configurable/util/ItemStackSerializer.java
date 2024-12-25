@@ -1,5 +1,6 @@
 package mc.obliviate.inventory.configurable.util;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.google.common.base.Preconditions;
 import mc.obliviate.inventory.configurable.GuiConfigurationTable;
 import mc.obliviate.util.placeholder.PlaceholderUtil;
@@ -142,7 +143,7 @@ public class ItemStackSerializer {
         if (section.getBoolean(table.getGlowSectionName())) {
             meta.getItemFlags().add(ItemFlag.HIDE_ENCHANTS);
             if (meta.getEnchants().isEmpty()) {
-                meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
+                meta.addEnchant(Enchantment.PROTECTION, 1, true);
             }
         }
         item.setItemMeta(meta);

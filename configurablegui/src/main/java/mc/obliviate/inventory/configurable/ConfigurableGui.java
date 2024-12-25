@@ -4,7 +4,6 @@ import mc.obliviate.inventory.Gui;
 import mc.obliviate.inventory.Icon;
 import mc.obliviate.inventory.configurable.util.GuiSerializer;
 import mc.obliviate.util.placeholder.PlaceholderUtil;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -32,7 +31,7 @@ public class ConfigurableGui extends Gui {
     public ConfigurableGui(@Nonnull Player player, @Nonnull String id, @Nonnull GuiConfigurationTable guiConfigurationTable) {
         super(player, id, "No title found", 0);
         this.guiConfigurationTable = guiConfigurationTable;
-        setTitle(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(guiConfigurationTable.getMenusSection(getSectionPath()).getString(guiConfigurationTable.getTitleSectionName(), "No Title Found"))));
+        setTitle(org.bukkit.ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(guiConfigurationTable.getMenusSection(getSectionPath()).getString(guiConfigurationTable.getTitleSectionName(), "No Title Found"))));
         setSize(guiConfigurationTable.getMenusSection(getSectionPath()).getInt(guiConfigurationTable.getSizeSectionName(), 0) * 9);
     }
 
